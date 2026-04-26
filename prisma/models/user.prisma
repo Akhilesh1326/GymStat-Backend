@@ -1,0 +1,15 @@
+model User {
+    id          String  @id @default(uuid())
+    userName    String  @unique @map("user_name")
+    name        String
+    password    String
+    phoneNumber String? @map("phone_number")
+    email       String?
+    activated   Boolean @default(true)
+    
+    /// ['user', 'admin']
+    role        String  @default("user")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
