@@ -1,0 +1,9 @@
+model ExerciseCategory {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String  @unique
+  description String?
+
+  exercises Exercise[]
+
+  @@map("exercise_categories")
+}

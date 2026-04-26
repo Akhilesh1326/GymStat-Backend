@@ -1,0 +1,17 @@
+model Exercise {
+  id            String  @id @default(uuid()) @db.Uuid
+  categoryId    String? @map("category_id") @db.Uuid
+  name          String
+  equipmentType String? @map("equipment_type") // e.g. barbell, dumbbell, cable, bodyweight
+  muscleGroup   String? @map("muscle_group")   // e.g. chest, back, legs
+  notes         String?
+  isCustom      Boolean @default(false) @map("is_custom")
+  createdById   String? @map("created_by") @db.Uuid
+
+  category    ExerciseCategory? @relation(fields: [categoryId], references: [id])
+  createdBy   User?             @relation("CustomExercises", fields: [createdById], references: [id])
+  workoutLogs WorkoutLog[]
+
+  @@unique([name, createdById]) // allows same exercise name for different custom creators
+  @@map("exercises")
+}

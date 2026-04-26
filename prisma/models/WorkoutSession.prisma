@@ -1,0 +1,15 @@
+model WorkoutSession {
+  id              String   @id @default(uuid()) @db.Uuid
+  userId          String   @map("user_id") @db.Uuid
+  sessionDate     DateTime @default(now()) @map("session_date") @db.Date
+  title           String?  // e.g. "Push Day", "Leg Day"
+  durationMinutes Int?     @map("duration_minutes")
+  notes           String?
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  user        User         @relation(fields: [userId], references: [id])
+  workoutLogs WorkoutLog[]
+
+  @@index([userId, sessionDate])
+  @@map("workout_sessions")
+}

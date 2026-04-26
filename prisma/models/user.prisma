@@ -6,10 +6,15 @@ model User {
     phoneNumber String? @map("phone_number")
     email       String?
     activated   Boolean @default(true)
-    
+
     /// ['user', 'admin']
-    role        String  @default("user")
+    role String @default("user")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    workoutSessions WorkoutSession[]
+    customExercises Exercise[]       @relation("CustomExercises")
+
+    @@map("users")
 }
